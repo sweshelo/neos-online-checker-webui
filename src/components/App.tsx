@@ -19,6 +19,11 @@ const App: React.FC = () => {
           value="click"
           onClick={() => dispatch({ type: actions.INCREMENT })}
         />
+        <input
+          type="button"
+          value="click"
+          onClick={() => dispatch({ type: actions.INCREMENT_ASYNC })}
+        />
         <p>{count}</p>
       </header>
     </div>
