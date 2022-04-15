@@ -2,13 +2,13 @@ import React from "react"
 import logo from "./logo.svg"
 import "./App.css"
 
-import actions from "../redux/actions"
+import actions from "../redux/sample/actions"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const { count } = useSelector((state: RootState) => state.reducer)
+  const { count } = useSelector((state: RootState) => state.sampleReducer)
 
   return (
     <div className="App">
