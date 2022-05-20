@@ -1,0 +1,13 @@
+version: '3'
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: ./docker/react-app/Dockerfile
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/src/react-app
+    ports:
+      - '3000:3000'
+    tty: true
