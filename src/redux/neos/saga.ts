@@ -29,10 +29,13 @@ export function* getUserState({ payload }: any): Generator<ApiCall> {
   try {
     const response = yield call(
       ApiCall.get,
-      `https://api.neos.com/api/users/${id}`
+      `https://api.neos.com/api/users/${id}/status`
     )
     console.log(response)
-    yield put({ type: neosActions.SET_STATUS, payload: { user: response } })
+    yield put({
+      type: neosActions.SET_STATUS,
+      payload: { status: response, id },
+    })
   } catch (err) {
     console.error(err)
   }

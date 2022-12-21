@@ -12,8 +12,7 @@ const UserSelectButton: React.FC<{ user: User }> = ({ user }) => {
     <div
       id={"user-select-button"}
       onClick={() => {
-        console.log(user.id)
-        dispatch(neosActions.addUserActionCreator(user.id))
+        dispatch(neosActions.addUserActionCreator(user))
         dispatch(neosActions.getUserStateActionCreator(user.id))
       }}
     >

@@ -1,3 +1,5 @@
+import { User } from "../../types/neos"
+
 const neosActions = {
   ADD_USER: "ADD_USER",
   DELETE_USER: "DELETE_USER",
@@ -18,11 +20,12 @@ const neosActions = {
       },
     } as const),
 
-  addUserActionCreator: (id: string) =>
+  addUserActionCreator: (user: User) =>
     ({
       type: "ADD_USER",
       payload: {
-        id,
+        user,
+        id: user.id,
       },
     } as const),
 

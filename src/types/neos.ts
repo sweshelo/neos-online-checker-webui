@@ -96,4 +96,15 @@ type UserStatus = {
   activeSessions: Array<Session>;
 };
 
-export type { OnlineStatus, User, UserStatus, OutputDevice }
+type UserInfoAndUserStatus = {
+  userInfo: User;
+  status: UserStatus | null;
+};
+
+export type {
+  OnlineStatus,
+  User,
+  UserStatus,
+  OutputDevice,
+  UserInfoAndUserStatus,
+}
