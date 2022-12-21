@@ -1,31 +1,34 @@
-import React from "react"
-import logo from "./logo.svg"
+import React, { useState } from "react"
 import "./App.css"
 
-import actions from "../redux/sample/actions"
+import neosActions from "../redux/neos/actions"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"
+import UserSelectModal from "./UserSelectModal"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const { count } = useSelector((state: RootState) => state.sampleReducer)
+  const { isShowingModal } = useSelector(
+    (state: RootState) => state.neosReducer
+  )
+  const [usernameInput, setUsernameInput] = useState("")
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <input
-          type="button"
-          value="click"
-          onClick={() => dispatch({ type: actions.INCREMENT })}
+          type={"text"}
+          onChange={(e) => setUsernameInput(e.target.value)}
         />
         <input
-          type="button"
-          value="click"
-          onClick={() => dispatch({ type: actions.INCREMENT_ASYNC })}
+          type={"button"}
+          value={"search"}
+          onClick={() =>
+            dispatch(neosActions.searchUserActionCreator(usernameInput))
+          }
         />
-        <p>{count}</p>
       </header>
+      {isShowingModal && <UserSelectModal></UserSelectModal>}
     </div>
   )
 }
