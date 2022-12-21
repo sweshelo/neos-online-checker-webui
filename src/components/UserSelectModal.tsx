@@ -28,7 +28,6 @@ const UserSelectButton: React.FC<{ user: User }> = ({ user }) => {
 const UserSelectModal: React.FC = () => {
   const dispatch = useDispatch()
   const { searchResult } = useSelector((state: RootState) => state.neosReducer)
-  console.log(searchResult)
 
   return (
     <>

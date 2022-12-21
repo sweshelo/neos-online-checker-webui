@@ -4,7 +4,6 @@ import { ApiCall } from "../../helper/neosApiCall"
 
 export function* searchUser({ payload }: any): Generator<ApiCall> {
   const { username } = payload
-  console.log(`Request: ${username}`)
 
   if (username == "") return
 
@@ -22,7 +21,6 @@ export function* searchUser({ payload }: any): Generator<ApiCall> {
 
 export function* getUserState({ payload }: any): Generator<ApiCall> {
   const { id } = payload
-  console.log(`Status: ${id}`)
 
   if (id == "") return
 
@@ -31,7 +29,6 @@ export function* getUserState({ payload }: any): Generator<ApiCall> {
       ApiCall.get,
       `https://api.neos.com/api/users/${id}/status`
     )
-    console.log(response)
     yield put({
       type: neosActions.SET_STATUS,
       payload: { status: response, id },

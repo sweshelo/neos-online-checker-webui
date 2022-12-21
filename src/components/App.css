@@ -1,19 +1,19 @@
 .App {
   text-align: center;
-  padding: 4px;
+  padding: 4px 20px;
 }
 
 .App-header {
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: center;
+  margin: 10px;
 }
 
-#user-investigate {
-  float: left;
-  width: 300px;
+#user-name {
+  height:5px;
 }
 
-#user-investigate-submit {
-  display: block;
+#submit {
+  margin-left: 10px;
 }

@@ -7,6 +7,8 @@ import { RootState } from "../redux/store"
 import UserSelectModal from "./UserSelectModal"
 import UserList from "./UserList"
 
+import { Button, TextField } from "@mui/material"
+
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const { isShowingModal } = useSelector(
@@ -17,19 +19,21 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <input
-          id={"user-investigate"}
+        <TextField
+          id="user-name"
           type={"text"}
+          variant={"outlined"}
           onChange={(e) => setUsernameInput(e.target.value)}
         />
-        <input
-          id={"user-investigate-submit"}
-          type={"button"}
-          value={"search"}
+        <Button
+          id="submit"
+          variant={"contained"}
           onClick={() =>
             dispatch(neosActions.searchUserActionCreator(usernameInput))
           }
-        />
+        >
+          Search
+        </Button>
       </header>
       {isShowingModal && <UserSelectModal />}
       <UserList />

@@ -1,4 +1,4 @@
-type OnlineStatus = "Offline" | "Invisible" | "Away" | "Busy" | "Offline";
+type OnlineStatus = "Offline" | "Invisible" | "Away" | "Busy" | "Online";
 type AccessLevel =
   | "Private"
   | "LAN"
@@ -107,4 +107,5 @@ export type {
   UserStatus,
   OutputDevice,
   UserInfoAndUserStatus,
+  Session,
 }
