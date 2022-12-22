@@ -19,10 +19,7 @@ export function* searchUser({ payload }: any): Generator<ApiCall> {
   if (username == "") return
 
   try {
-    const response = yield call(
-      ApiCall.get,
-      `https://api.neos.com/api/users?name=${username}`
-    )
+    const response = yield call(ApiCall.get, `users?name=${username}`)
     yield put({ type: neosActions.REGISTER_SEARCH_RESULT, payload: response })
     yield put({ type: neosActions.MODAL_SHOW })
   } catch (err) {
@@ -36,10 +33,7 @@ export function* searchUserById({ payload }: any): Generator<ApiCall> {
   if (userId == "") return
 
   try {
-    const response = yield call(
-      ApiCall.get,
-      `https://api.neos.com/api/users/${userId}`
-    )
+    const response = yield call(ApiCall.get, `users/${userId}`)
     yield put({ type: neosActions.ADD_USER, payload: { user: response } })
     yield call(getUserState, { payload: { id: userId } })
   } catch (err) {
@@ -53,10 +47,7 @@ export function* getUserState({ payload }: any): Generator<ApiCall> {
   if (id == "") return
 
   try {
-    const response = yield call(
-      ApiCall.get,
-      `https://api.neos.com/api/users/${id}/status`
-    )
+    const response = yield call(ApiCall.get, `users/${id}/status`)
     yield put({
       type: neosActions.SET_STATUS,
       payload: { status: response, id },
