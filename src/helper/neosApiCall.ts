@@ -8,6 +8,7 @@ export class ApiCall {
     return fetch(url, {
       method,
       headers,
+      mode: "no-cors",
     })
       .then((response) => response.json())
       .catch((error) => error)
