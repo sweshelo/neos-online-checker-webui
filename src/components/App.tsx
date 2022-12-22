@@ -11,9 +11,6 @@ import { Button, TextField } from "@mui/material"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const { isShowingModal } = useSelector(
-    (state: RootState) => state.neosReducer
-  )
   const [usernameInput, setUsernameInput] = useState("")
 
   return (
@@ -34,8 +31,14 @@ const App: React.FC = () => {
         >
           Search
         </Button>
+        <Button id="submit" variant={"contained"}>
+          Save
+        </Button>
+        <Button id="submit" variant={"contained"}>
+          Reload
+        </Button>
       </header>
-      {isShowingModal && <UserSelectModal />}
+      <UserSelectModal />
       <UserList />
     </div>
   )

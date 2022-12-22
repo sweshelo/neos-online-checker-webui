@@ -6,11 +6,13 @@ import { RootState } from "../redux/store"
 import {
   Card,
   CardContent,
+  Grid,
   List,
   ListItem,
   ListItemButton,
   Typography,
 } from "@mui/material"
+import { height } from "@mui/system"
 
 const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   let color = "gray"
@@ -33,7 +35,15 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   }
 
   return (
-    <Card className="user-status-show">
+    <Card
+      className="user-status-show"
+      sx={{
+        width: 300,
+        height: 300,
+        margin: "4px",
+        overflow: "scroll",
+      }}
+    >
       <CardContent>
         <Typography sx={{ fontSize: 20 }} component="span" paddingX={1}>
           {user.userInfo.username}
@@ -47,10 +57,17 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
         <List>
           {user.status?.activeSessions &&
             user.status?.activeSessions.map((session: Session) => {
+              const color =
+                session.sessionId === user.status?.currentSessionId
+                  ? "#dfd"
+                  : "#fff"
               return (
                 <ListItem
                   key={session.sessionId + user.userInfo.id}
                   disablePadding
+                  sx={{
+                    backgroundColor: color,
+                  }}
                 >
                   <ListItemButton>{session.name}</ListItemButton>
                 </ListItem>
@@ -69,17 +86,20 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
 }
 
 const UserList: React.FC = () => {
-  const dispatch = useDispatch()
   const { users } = useSelector((state: RootState) => state.neosReducer)
 
   return (
     <>
       <div id={"user-list"}>
-        <ul>
+        <Grid container alignItems={"center"} justifyContent="center">
           {users.map((user: UserInfoAndUserStatus) => {
-            return <UserStatus user={user} key={user.userInfo.id} />
+            return (
+              <Grid item key={user.userInfo.id}>
+                <UserStatus user={user} />
+              </Grid>
+            )
           })}
-        </ul>
+        </Grid>
       </div>
     </>
   )
