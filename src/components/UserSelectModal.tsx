@@ -79,6 +79,7 @@ const UserSelectModal: React.FC = () => {
                       dispatch(neosActions.addUserActionCreator(user))
                       dispatch(neosActions.getUserStateActionCreator(user.id))
                       dispatch({ type: neosActions.MODAL_HIDE })
+                      dispatch({ type: neosActions.WRITE_TO_COOKIE })
                     }}
                   >
                     <TableCell key={"username:" + user.id}>

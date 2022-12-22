@@ -49,14 +49,6 @@ const App: React.FC = () => {
           variant={"contained"}
           className="App-header-content"
           sx={{ margin: "0 5px" }}
-          onClick={() => dispatch({ type: neosActions.WRITE_TO_COOKIE })}
-        >
-          Save
-        </Button>
-        <Button
-          variant={"contained"}
-          className="App-header-content"
-          sx={{ margin: "0 5px" }}
           onClick={() => {
             users.forEach((user: UserInfoAndUserStatus) => {
               dispatch(neosActions.getUserStateActionCreator(user.userInfo.id))
