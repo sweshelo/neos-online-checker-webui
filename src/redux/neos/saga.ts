@@ -33,10 +33,15 @@ export function* searchUser({ payload }: any): Generator<ApiCall> {
   }
 }
 
-export function* searchUserById({ payload }: any): Generator<ApiCall> {
+export function* searchUserById({ payload }: any): any {
   const { userId } = payload
+  const { users }: State = yield select((state) => state.neosReducer)
 
-  if (userId == "") return
+  let checkDuplicate = false
+  users.forEach((user: UserInfoAndUserStatus) => {
+    if (user.userInfo.id == userId) checkDuplicate = true
+  })
+  if (userId == "" || checkDuplicate) return
 
   try {
     const response = yield call(ApiCall.get, `users/${userId}`)

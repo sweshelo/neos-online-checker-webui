@@ -1,5 +1,5 @@
 import React from "react"
-import { User } from "../types/neos"
+import { User, UserInfoAndUserStatus } from "../types/neos"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import neosActions from "../redux/neos/actions"
@@ -31,7 +31,7 @@ const UserSelectButton: React.FC<{ user: User }> = ({ user }) => {
 
 const UserSelectModal: React.FC = () => {
   const dispatch = useDispatch()
-  const { isShowingModal, searchResult } = useSelector(
+  const { isShowingModal, searchResult, users } = useSelector(
     (state: RootState) => state.neosReducer
   )
   const style = {
@@ -76,8 +76,17 @@ const UserSelectModal: React.FC = () => {
                     hover
                     key={user.id}
                     onClick={() => {
-                      dispatch(neosActions.addUserActionCreator(user))
-                      dispatch(neosActions.getUserStateActionCreator(user.id))
+                      let checkDuplicate = false
+                      users.forEach((storedUser: UserInfoAndUserStatus) => {
+                        if (storedUser.userInfo.id == user.id)
+                          checkDuplicate = true
+                      })
+                      if (!checkDuplicate) {
+                        dispatch(neosActions.addUserActionCreator(user))
+                        dispatch(
+                          neosActions.getUserStateActionCreator(user.id)
+                        )
+                      }
                       dispatch({ type: neosActions.MODAL_HIDE })
                     }}
                   >
