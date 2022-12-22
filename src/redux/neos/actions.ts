@@ -16,6 +16,10 @@ const neosActions = {
   LOGIN_MODAL_HIDE: "LOGIN_MODAL_HIDE",
   IMPORT_MODAL_SHOW: "IMPORT_MODAL_SHOW",
   IMPORT_MODAL_HIDE: "IMPORT_MODAL_HIDE",
+  SESSION_MODAL_SHOW: "SESSION_MODAL_SHOW",
+  SESSION_MODAL_HIDE: "SESSION_MODAL_HIDE",
+
+  SET_FOCUS_SESSION: "SET_FOCUS_SESSION",
 
   WRITE_TO_COOKIE: "WRITE_TO_COOKIE",
   READ_FROM_COOKIE: "READ_FROM_COOKIE",
@@ -65,6 +69,14 @@ const neosActions = {
       payload: {
         username,
         password,
+      },
+    } as const),
+  sessionModalOpenActionCreator: (sessionId: string, relativeUserId: string) =>
+    ({
+      type: "SESSION_MODAL_SHOW",
+      payload: {
+        sessionId,
+        userId: relativeUserId,
       },
     } as const),
 }
