@@ -28,7 +28,6 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <TextField
-          id="user-name"
           className="App-header-content"
           type={"text"}
           variant={"outlined"}
