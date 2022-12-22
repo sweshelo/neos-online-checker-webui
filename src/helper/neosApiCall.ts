@@ -5,10 +5,9 @@ export class ApiCall {
       Accept: "application/json",
     }
 
-    return fetch(url, {
+    return fetch(`https://neos-proxy.kokoa.live/api/${url}`, {
       method,
       headers,
-      mode: "no-cors",
     })
       .then((response) => response.json())
       .catch((error) => error)
