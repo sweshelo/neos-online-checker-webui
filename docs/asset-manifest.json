@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.5e10d490.css",
-    "main.js": "/static/js/main.8a70d80c.js",
-    "static/js/787.5d6c1722.chunk.js": "/static/js/787.5d6c1722.chunk.js",
-    "index.html": "/index.html",
-    "main.5e10d490.css.map": "/static/css/main.5e10d490.css.map",
-    "main.8a70d80c.js.map": "/static/js/main.8a70d80c.js.map",
-    "787.5d6c1722.chunk.js.map": "/static/js/787.5d6c1722.chunk.js.map"
+    "main.css": "/neos-online-checker-webui/static/css/main.5e10d490.css",
+    "main.js": "/neos-online-checker-webui/static/js/main.fe78fdbf.js",
+    "static/js/787.5d6c1722.chunk.js": "/neos-online-checker-webui/static/js/787.5d6c1722.chunk.js",
+    "index.html": "/neos-online-checker-webui/index.html",
+    "main.5e10d490.css.map": "/neos-online-checker-webui/static/css/main.5e10d490.css.map",
+    "main.fe78fdbf.js.map": "/neos-online-checker-webui/static/js/main.fe78fdbf.js.map",
+    "787.5d6c1722.chunk.js.map": "/neos-online-checker-webui/static/js/787.5d6c1722.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5e10d490.css",
-    "static/js/main.8a70d80c.js"
+    "static/js/main.fe78fdbf.js"
   ]
 }
