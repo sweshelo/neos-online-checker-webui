@@ -4,6 +4,7 @@ import neosActions from "../redux/neos/actions"
 import {
   Box,
   Button,
+  Checkbox,
   Modal,
   TableBody,
   TableCell,
@@ -53,6 +54,7 @@ const FriendImportModal: React.FC = () => {
           <TableContainer sx={{ minWidth: 300, maxHeight: 720 }}>
             <TableHead>
               <TableRow>
+                <TableCell>Check</TableCell>
                 <TableCell>UserName</TableCell>
                 <TableCell>UserID</TableCell>
               </TableRow>
@@ -61,6 +63,12 @@ const FriendImportModal: React.FC = () => {
               {friends.map((user: Friend) => {
                 return (
                   <TableRow hover key={user.id}>
+                    <TableCell key={"checkbox:" + user.id}>
+                      <Checkbox
+                        defaultChecked
+                        onChange={(e) => (user.checked = e.target.checked)}
+                      />
+                    </TableCell>
                     <TableCell key={"username:" + user.id}>
                       {user.friendUsername}
                     </TableCell>
@@ -74,10 +82,11 @@ const FriendImportModal: React.FC = () => {
             variant="contained"
             onClick={() => {
               friends.forEach((user: Friend) => {
-                dispatch(neosActions.searchUserByIdActionCreator(user.id))
-                dispatch({
-                  type: neosActions.IMPORT_MODAL_HIDE,
-                })
+                if (user.checked === undefined || user.checked === true)
+                  dispatch(neosActions.searchUserByIdActionCreator(user.id))
+              })
+              dispatch({
+                type: neosActions.IMPORT_MODAL_HIDE,
               })
             }}
           >

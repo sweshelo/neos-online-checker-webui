@@ -122,6 +122,7 @@ type Friend = {
   profile: Profile;
   latestMessageTime: string;
   ownerId: string;
+  checked: boolean; // Import用. 実際のResponseには含まれない
 };
 
 export type {

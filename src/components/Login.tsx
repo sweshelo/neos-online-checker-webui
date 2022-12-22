@@ -41,7 +41,7 @@ const LoginModal: React.FC = () => {
         </Typography>
         <TextField
           label="Username"
-          type={"username"}
+          type={"userid"}
           defaultValue=""
           sx={{
             margin: "4px",
