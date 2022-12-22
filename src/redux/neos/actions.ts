@@ -12,9 +12,20 @@ const neosActions = {
 
   MODAL_SHOW: "MODAL_SHOW",
   MODAL_HIDE: "MODAL_HIDE",
+  LOGIN_MODAL_SHOW: "LOGIN_MODAL_SHOW",
+  LOGIN_MODAL_HIDE: "LOGIN_MODAL_HIDE",
+  IMPORT_MODAL_SHOW: "IMPORT_MODAL_SHOW",
+  IMPORT_MODAL_HIDE: "IMPORT_MODAL_HIDE",
 
   WRITE_TO_COOKIE: "WRITE_TO_COOKIE",
   READ_FROM_COOKIE: "READ_FROM_COOKIE",
+
+  LOGIN_NEOS: "LOGIN_NEOS",
+  SAVE_CREDENTIALS: "SAVE_CREDENTIALS",
+
+  GET_FRIENDS: "GET_FRIENDS",
+  SET_FRIENDS: "GET_FRIENDS",
+  IMPORT_FROM_FRIENDLIST: "IMPORT_FROM_FRIENDLIST",
 
   searchUserActionCreator: (username: string) =>
     ({
@@ -39,11 +50,21 @@ const neosActions = {
       id,
     },
   }),
+
   searchUserByIdActionCreator: (userId: string) =>
     ({
       type: "SEARCH_USER_BY_ID",
       payload: {
         userId,
+      },
+    } as const),
+
+  loginNeosActionCreator: (username: string, password: string) =>
+    ({
+      type: "LOGIN_NEOS",
+      payload: {
+        username,
+        password,
       },
     } as const),
 }

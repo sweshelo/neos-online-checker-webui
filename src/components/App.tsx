@@ -10,6 +10,8 @@ import { Button, TextField } from "@mui/material"
 import { getCookie } from "typescript-cookie"
 import { RootState } from "../redux/store"
 import { UserInfoAndUserStatus } from "../types/neos"
+import LoginModal from "./Login"
+import FriendImportModal from "./FriendsImportModal"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -36,6 +38,7 @@ const App: React.FC = () => {
           id="submit"
           className="App-header-content"
           variant={"contained"}
+          sx={{ margin: "0 5px" }}
           onClick={() =>
             dispatch(neosActions.searchUserActionCreator(usernameInput))
           }
@@ -45,6 +48,7 @@ const App: React.FC = () => {
         <Button
           variant={"contained"}
           className="App-header-content"
+          sx={{ margin: "0 5px" }}
           onClick={() => dispatch({ type: neosActions.WRITE_TO_COOKIE })}
         >
           Save
@@ -52,6 +56,7 @@ const App: React.FC = () => {
         <Button
           variant={"contained"}
           className="App-header-content"
+          sx={{ margin: "0 5px" }}
           onClick={() => {
             users.forEach((user: UserInfoAndUserStatus) => {
               dispatch(neosActions.getUserStateActionCreator(user.userInfo.id))
@@ -60,8 +65,18 @@ const App: React.FC = () => {
         >
           Reload
         </Button>
+        <Button
+          variant="contained"
+          className="App-header-content"
+          sx={{ margin: "0 5px" }}
+          onClick={() => dispatch({ type: neosActions.LOGIN_MODAL_SHOW })}
+        >
+          フレンドをインポート
+        </Button>
       </header>
       <UserSelectModal />
+      <LoginModal />
+      <FriendImportModal />
       <UserList />
     </div>
   )
