@@ -1,19 +1,4 @@
 .App {
   text-align: center;
-  padding: 4px 20px;
-}
-
-.App-header {
-  font-size: calc(10px + 2vmin);
-  color: white;
-  text-align: center;
-  margin: 10px;
-}
-
-#user-name {
-  height:5px;
-}
-
-#submit {
-  margin-left: 10px;
+  padding: 4px;
 }

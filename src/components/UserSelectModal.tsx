@@ -1,5 +1,4 @@
 import React from "react"
-//import "./UserSelectModal.css"
 import { User } from "../types/neos"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"

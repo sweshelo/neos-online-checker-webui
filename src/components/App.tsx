@@ -3,7 +3,6 @@ import "./App.css"
 
 import neosActions from "../redux/neos/actions"
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../redux/store"
 import UserSelectModal from "./UserSelectModal"
 import UserList from "./UserList"
 

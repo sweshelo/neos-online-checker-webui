@@ -1,7 +1,6 @@
 import React from "react"
-import "./UserList.css"
-import { User, UserInfoAndUserStatus, Session } from "../types/neos"
-import { useDispatch, useSelector } from "react-redux"
+import { UserInfoAndUserStatus, Session } from "../types/neos"
+import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import {
   Card,
@@ -12,7 +11,6 @@ import {
   ListItemButton,
   Typography,
 } from "@mui/material"
-import { height } from "@mui/system"
 
 const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   let color = "gray"
