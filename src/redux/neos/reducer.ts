@@ -1,3 +1,4 @@
+import { Session } from "inspector"
 import {
   Credentials,
   Friend,
@@ -15,6 +16,9 @@ type Action = {
     status: UserStatus;
     credentials: Credentials;
     friends: Array<Friend>;
+    userId: string;
+    sessionId: string;
+    sessionObj: Session;
   };
 };
 
@@ -22,20 +26,31 @@ export type State = {
   isShowingModal: boolean;
   isShowingLoginModal: boolean;
   isShowingFriendImportModal: boolean;
+  isShowingSessionModal: boolean;
   users: Array<UserInfoAndUserStatus>;
   searchResult: any;
   you: Credentials | undefined | null;
   friends: Array<Friend>;
+  session: {
+    sessionId: string;
+    userId: string;
+    sessionInfo?: Session;
+  };
 };
 
 const initialState: State = {
   isShowingModal: false,
   isShowingLoginModal: false,
   isShowingFriendImportModal: false,
+  isShowingSessionModal: false,
   users: [],
   searchResult: null,
   you: null,
   friends: [],
+  session: {
+    sessionId: "",
+    userId: "",
+  },
 }
 
 const neosReducer = (state = initialState, action: Action) => {
@@ -100,7 +115,21 @@ const neosReducer = (state = initialState, action: Action) => {
       ...state,
       isShowingFriendImportModal: false,
     }
-
+  case neosActions.SESSION_MODAL_SHOW:
+    return {
+      ...state,
+      session: {
+        ...state.session,
+        userId: action.payload.userId,
+        sessionId: action.payload.sessionId,
+      },
+      isShowingSessionModal: true,
+    }
+  case neosActions.SESSION_MODAL_HIDE:
+    return {
+      ...state,
+      isShowingSessionModal: false,
+    }
   case neosActions.SAVE_CREDENTIALS:
     return {
       ...state,
