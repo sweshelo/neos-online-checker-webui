@@ -52,12 +52,12 @@ type Session = {
 type PatreonData = any;
 type Profile = {
   iconUrl: string;
-  backgroundUrl: string;
-  tagline: string;
-  description: string;
-  profileWorldUrl: string;
-  showcaseItems: Array<string>;
-  tokenOptOut: Array<string>;
+  backgroundUrl?: string;
+  tagline?: string;
+  description?: string;
+  profileWorldUrl?: string;
+  showcaseItems?: Array<string>;
+  tokenOptOut?: Array<string>;
 };
 
 type User = {
@@ -101,6 +101,29 @@ type UserInfoAndUserStatus = {
   status: UserStatus | null;
 };
 
+type Credentials = {
+  userId: string;
+  token: string;
+  created: string;
+  expire: string;
+  rememberMe: boolean;
+  sourceIP: string;
+  partitionKey: string;
+  rowKey: string;
+  timestamp: string;
+  eTag: string;
+};
+
+type Friend = {
+  id: string;
+  friendUsername: string;
+  friendStatus: "Accepted" | string;
+  userStatus: UserStatus;
+  profile: Profile;
+  latestMessageTime: string;
+  ownerId: string;
+};
+
 export type {
   OnlineStatus,
   User,
@@ -108,4 +131,6 @@ export type {
   OutputDevice,
   UserInfoAndUserStatus,
   Session,
+  Credentials,
+  Friend,
 }
