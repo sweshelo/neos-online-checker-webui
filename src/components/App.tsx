@@ -8,10 +8,13 @@ import UserList from "./UserList"
 
 import { Button, TextField } from "@mui/material"
 import { getCookie } from "typescript-cookie"
+import { RootState } from "../redux/store"
+import { UserInfoAndUserStatus } from "../types/neos"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const [usernameInput, setUsernameInput] = useState("")
+  const { users } = useSelector((state: RootState) => state.neosReducer)
 
   useEffect(() => {
     JSON.parse(getCookie("user") || "[]").forEach((userId: string) => {
@@ -46,7 +49,15 @@ const App: React.FC = () => {
         >
           Save
         </Button>
-        <Button variant={"contained"} className="App-header-content">
+        <Button
+          variant={"contained"}
+          className="App-header-content"
+          onClick={() => {
+            users.forEach((user: UserInfoAndUserStatus) => {
+              dispatch(neosActions.getUserStateActionCreator(user.userInfo.id))
+            })
+          }}
+        >
           Reload
         </Button>
       </header>
