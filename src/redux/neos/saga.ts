@@ -42,6 +42,7 @@ export function* searchUserById({ payload }: any): Generator<ApiCall> {
     const response = yield call(ApiCall.get, `users/${userId}`)
     yield put({ type: neosActions.ADD_USER, payload: { user: response } })
     yield call(getUserState, { payload: { id: userId } })
+    yield call(writeUserListToCookie)
   } catch (err) {
     console.error(err)
   }
