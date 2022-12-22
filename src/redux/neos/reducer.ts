@@ -10,7 +10,7 @@ type Action = {
   };
 };
 
-type State = {
+export type State = {
   isShowingModal: boolean;
   users: Array<UserInfoAndUserStatus>;
   searchResult: any;
