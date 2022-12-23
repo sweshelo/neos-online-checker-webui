@@ -97,10 +97,27 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   )
 }
 
+interface IState {
+  [key: string]: number; // ←シグネチャー
+  Online: number;
+  Away: number;
+  Busy: number;
+  Invisible: number;
+  Offline: number;
+}
+
 const sortByLastStatus = (
   a: UserInfoAndUserStatus,
   b: UserInfoAndUserStatus
 ) => {
+  const sortOrder: IState = {
+    Online: 0,
+    Away: 1,
+    Busy: 2,
+    Invisible: 3,
+    Offline: 4,
+  }
+
   const aDate: Date = new Date(a.status?.lastStatusChange || "")
   const bDate: Date = new Date(b.status?.lastStatusChange || "")
 
@@ -108,7 +125,10 @@ const sortByLastStatus = (
     return bDate.getTime() - aDate.getTime()
   } else {
     if (a.status && b.status && a.status.onlineStatus !== b.status.onlineStatus)
-      return a.status?.onlineStatus > b.status?.onlineStatus ? -1 : 1
+      return sortOrder[a.status?.onlineStatus] >
+        sortOrder[b.status?.onlineStatus]
+        ? 1
+        : -1
   }
   return 0
 }
