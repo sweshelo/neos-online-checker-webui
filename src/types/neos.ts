@@ -1,4 +1,4 @@
-type OnlineStatus = "Offline" | "Invisible" | "Away" | "Busy" | "Online";
+type OnlineStatus = "Online" | "Away" | "Busy" | "Invisible" | "Offline";
 type AccessLevel =
   | "Private"
   | "LAN"

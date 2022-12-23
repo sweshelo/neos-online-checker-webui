@@ -83,6 +83,22 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   )
 }
 
+const sortByLastStatus = (
+  a: UserInfoAndUserStatus,
+  b: UserInfoAndUserStatus
+) => {
+  const aDate: Date = new Date(a.status?.lastStatusChange || "")
+  const bDate: Date = new Date(b.status?.lastStatusChange || "")
+
+  if (a.status?.onlineStatus === b.status?.onlineStatus) {
+    return bDate.getTime() - aDate.getTime()
+  } else {
+    if (a.status && b.status && a.status.onlineStatus !== b.status.onlineStatus)
+      return a.status?.onlineStatus > b.status?.onlineStatus ? -1 : 1
+  }
+  return 0
+}
+
 const UserList: React.FC = () => {
   const { users } = useSelector((state: RootState) => state.neosReducer)
 
@@ -90,7 +106,7 @@ const UserList: React.FC = () => {
     <>
       <div id={"user-list"}>
         <Grid container alignItems={"center"} justifyContent="center">
-          {users.map((user: UserInfoAndUserStatus) => {
+          {users.sort(sortByLastStatus).map((user: UserInfoAndUserStatus) => {
             return (
               <Grid item key={user.userInfo.id}>
                 <UserStatus user={user} />
