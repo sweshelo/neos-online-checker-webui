@@ -116,7 +116,7 @@ export function* writeUserListToCookie() {
   const userIdArray = users.map((user: UserInfoAndUserStatus): string => {
     return user.userInfo.id
   })
-  setCookie("user", JSON.stringify(userIdArray))
+  setCookie("user", JSON.stringify(userIdArray), { expires: 60 })
 }
 
 export function* watchSearchUser() {
