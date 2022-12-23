@@ -1,6 +1,6 @@
 import React from "react"
 import { UserInfoAndUserStatus, Session } from "../types/neos"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import {
   Card,
@@ -11,8 +11,11 @@ import {
   ListItemButton,
   Typography,
 } from "@mui/material"
+import neosActions from "../redux/neos/actions"
 
 const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
+  const dispatch = useDispatch()
+
   let color = "gray"
   switch (user.status?.onlineStatus) {
   case "Offline":
@@ -67,7 +70,18 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
                     backgroundColor: color,
                   }}
                 >
-                  <ListItemButton>{session.name}</ListItemButton>
+                  <ListItemButton
+                    onClick={() => {
+                      dispatch(
+                        neosActions.sessionModalOpenActionCreator(
+                          session.sessionId,
+                          user.userInfo.id
+                        )
+                      )
+                    }}
+                  >
+                    {session.name}
+                  </ListItemButton>
                 </ListItem>
               )
             })}

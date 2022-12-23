@@ -33,10 +33,15 @@ export function* searchUser({ payload }: any): Generator<ApiCall> {
   }
 }
 
-export function* searchUserById({ payload }: any): Generator<ApiCall> {
+export function* searchUserById({ payload }: any): any {
   const { userId } = payload
+  const { users }: State = yield select((state) => state.neosReducer)
 
-  if (userId == "") return
+  let checkDuplicate = false
+  users.forEach((user: UserInfoAndUserStatus) => {
+    if (user.userInfo.id == userId) checkDuplicate = true
+  })
+  if (userId == "" || checkDuplicate) return
 
   try {
     const response = yield call(ApiCall.get, `users/${userId}`)
@@ -116,7 +121,7 @@ export function* writeUserListToCookie() {
   const userIdArray = users.map((user: UserInfoAndUserStatus): string => {
     return user.userInfo.id
   })
-  setCookie("user", JSON.stringify(userIdArray))
+  setCookie("user", JSON.stringify(userIdArray), { expires: 60 })
 }
 
 export function* watchSearchUser() {
