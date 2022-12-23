@@ -12,6 +12,7 @@ import { RootState } from "../redux/store"
 import { UserInfoAndUserStatus } from "../types/neos"
 import LoginModal from "./Login"
 import FriendImportModal from "./FriendsImportModal"
+import SessionDetailModal from "./SessionDetailModal"
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,6 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <TextField
-          id="user-name"
           className="App-header-content"
           type={"text"}
           variant={"outlined"}
@@ -69,6 +69,7 @@ const App: React.FC = () => {
       <UserSelectModal />
       <LoginModal />
       <FriendImportModal />
+      <SessionDetailModal />
       <UserList />
     </div>
   )

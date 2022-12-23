@@ -14,7 +14,7 @@ type RecordId = {
 type Tag = string;
 type SessionUser = {
   username: string;
-  userId: string;
+  userID: string;
   isPresent: boolean;
   outputDevice: OutputDevice;
 };
@@ -47,6 +47,7 @@ type Session = {
   sessionBeginTime: string;
   lastUpdate: string;
   awaySince: string;
+  accessLevel: string;
 };
 
 type PatreonData = any;
@@ -132,6 +133,7 @@ export type {
   OutputDevice,
   UserInfoAndUserStatus,
   Session,
+  SessionUser,
   Credentials,
   Friend,
 }
