@@ -16,7 +16,7 @@ import {
   Credentials,
   Friend,
 } from "../../types/neos"
-import { Cookies, setCookie } from "typescript-cookie"
+import { Cookies, getCookie, setCookie } from "typescript-cookie"
 import { useDispatch } from "react-redux"
 
 export function* searchUser({ payload }: any): Generator<ApiCall> {
@@ -80,27 +80,23 @@ export function* loginNeos({ payload }: any): Generator<ApiCall> {
       password,
       rememberMe: true,
     })
-    yield put({
-      type: neosActions.SAVE_CREDENTIALS,
-      payload: { credentials: response },
-    })
     Cookies.set(
       "auth",
       `neos ${(response as Credentials).userId}:${
         (response as Credentials).token
       }`
     )
+    Cookies.set("userId", (response as Credentials).userId)
     yield call(getFriends)
-    console.log(response)
   } catch (err) {
     console.error(err)
   }
 }
 
 export function* getFriends(): any {
-  const { you }: State = yield select((state) => state.neosReducer)
+  const userId = getCookie("userId")
   try {
-    const response = yield call(ApiCall.get, `users/${you?.userId}/friends`)
+    const response = yield call(ApiCall.get, `users/${userId}/friends`)
     yield put({
       type: neosActions.SET_FRIENDS,
       payload: { friends: response },
@@ -144,6 +140,10 @@ export function* watchLoginNeos() {
   yield takeEvery(neosActions.LOGIN_NEOS, loginNeos)
 }
 
+export function* watchGetFriends() {
+  yield takeEvery(neosActions.GET_FRIENDS, getFriends)
+}
+
 // single entry point to start all Sagas at once
 export default function* neosSaga() {
   yield all([
@@ -152,5 +152,6 @@ export default function* neosSaga() {
     call(watchWriteUserListToCookie),
     call(watchSearchUserById),
     call(watchLoginNeos),
+    call(watchGetFriends),
   ])
 }

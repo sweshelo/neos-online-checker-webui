@@ -61,7 +61,14 @@ const App: React.FC = () => {
           variant="contained"
           className="App-header-content"
           sx={{ margin: "0 5px" }}
-          onClick={() => dispatch({ type: neosActions.LOGIN_MODAL_SHOW })}
+          onClick={() => {
+            if (getCookie("auth")) {
+              dispatch({ type: neosActions.GET_FRIENDS })
+              dispatch({ type: neosActions.IMPORT_MODAL_SHOW })
+            } else {
+              dispatch({ type: neosActions.LOGIN_MODAL_SHOW })
+            }
+          }}
         >
           フレンドをインポート
         </Button>
