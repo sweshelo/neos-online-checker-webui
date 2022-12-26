@@ -125,9 +125,9 @@ function sortByLastStatus(
     const bDate = new Date(b.status?.lastStatusChange || "")
 
     if (aDate < bDate) {
-      return -1
-    } else if (aDate > bDate) {
       return 1
+    } else if (aDate > bDate) {
+      return -1
     } else {
       return 0
     }
