@@ -28,7 +28,7 @@ const neosActions = {
   SAVE_CREDENTIALS: "SAVE_CREDENTIALS",
 
   GET_FRIENDS: "GET_FRIENDS",
-  SET_FRIENDS: "GET_FRIENDS",
+  SET_FRIENDS: "SET_FRIENDS",
   IMPORT_FROM_FRIENDLIST: "IMPORT_FROM_FRIENDLIST",
 
   searchUserActionCreator: (username: string) =>
