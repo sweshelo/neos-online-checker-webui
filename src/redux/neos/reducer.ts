@@ -66,6 +66,15 @@ const neosReducer = (state = initialState, action: Action) => {
         },
       ],
     }
+  case neosActions.DELETE_USER:
+    return {
+      ...state,
+      users: [
+        ...state.users.filter(
+          (user) => user.userInfo.id !== action.payload.userId
+        ),
+      ],
+    }
   case neosActions.REGISTER_SEARCH_RESULT:
     return {
       ...state,
