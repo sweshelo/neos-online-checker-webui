@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/neos-online-checker-webui/static/css/main.5e10d490.css",
-    "main.js": "/neos-online-checker-webui/static/js/main.e240b5cf.js",
+    "main.js": "/neos-online-checker-webui/static/js/main.6d66bc84.js",
     "static/js/787.5d6c1722.chunk.js": "/neos-online-checker-webui/static/js/787.5d6c1722.chunk.js",
     "index.html": "/neos-online-checker-webui/index.html",
     "main.5e10d490.css.map": "/neos-online-checker-webui/static/css/main.5e10d490.css.map",
-    "main.e240b5cf.js.map": "/neos-online-checker-webui/static/js/main.e240b5cf.js.map",
+    "main.6d66bc84.js.map": "/neos-online-checker-webui/static/js/main.6d66bc84.js.map",
     "787.5d6c1722.chunk.js.map": "/neos-online-checker-webui/static/js/787.5d6c1722.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5e10d490.css",
-    "static/js/main.e240b5cf.js"
+    "static/js/main.6d66bc84.js"
   ]
 }
