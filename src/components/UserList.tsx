@@ -128,20 +128,11 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   )
 }
 
-interface IState {
-  [key: string]: number; // ←シグネチャー
-  Online: number;
-  Away: number;
-  Busy: number;
-  Invisible: number;
-  Offline: number;
-}
-
-const sortByLastStatus = (
+function sortByLastStatus(
   a: UserInfoAndUserStatus,
   b: UserInfoAndUserStatus
-) => {
-  const sortOrder: IState = {
+): number {
+  const statusPriority: { [key: string]: number } = {
     Online: 0,
     Away: 1,
     Busy: 2,
@@ -149,19 +140,29 @@ const sortByLastStatus = (
     Offline: 4,
   }
 
-  const aDate: Date = new Date(a.status?.lastStatusChange || "")
-  const bDate: Date = new Date(b.status?.lastStatusChange || "")
+  // statusがnullまたはundefinedの場合は、Offlineとみなす
+  const aStatus = a.status?.onlineStatus || "Offline"
+  const bStatus = b.status?.onlineStatus || "Offline"
 
-  if (a.status?.onlineStatus === b.status?.onlineStatus) {
-    return bDate.getTime() - aDate.getTime()
+  const aPriority = statusPriority[aStatus]
+  const bPriority = statusPriority[bStatus]
+  if (aPriority < bPriority) {
+    return -1
+  } else if (aPriority > bPriority) {
+    return 1
   } else {
-    if (a.status && b.status && a.status.onlineStatus !== b.status.onlineStatus)
-      return sortOrder[a.status?.onlineStatus] >
-        sortOrder[b.status?.onlineStatus]
-        ? 1
-        : -1
+    // onlineStatusが同じ場合、lastStatusChangeで並べ替える
+    const aDate = new Date(a.status?.lastStatusChange || "")
+    const bDate = new Date(b.status?.lastStatusChange || "")
+
+    if (aDate < bDate) {
+      return 1
+    } else if (aDate > bDate) {
+      return -1
+    } else {
+      return 0
+    }
   }
-  return 0
 }
 
 type UserListProps = {
