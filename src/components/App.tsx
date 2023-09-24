@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import UserSelectModal from "./UserSelectModal"
 import UserList from "./UserList"
 
-import { Button, TextField } from "@mui/material"
-import { getCookie } from "typescript-cookie"
+import { Box, Button, Grid, Stack, TextField } from "@mui/material"
 import { RootState } from "../redux/store"
 import { UserInfoAndUserStatus } from "../types/neos"
 import LoginModal from "./Login"
@@ -19,20 +18,31 @@ const App: React.FC = () => {
   const [usernameInput, setUsernameInput] = useState("")
   const { users } = useSelector((state: RootState) => state.neosReducer)
 
-  useEffect(() => {
-    JSON.parse(getCookie("user") || "[]").forEach((userId: string) => {
-      dispatch(neosActions.searchUserByIdActionCreator(userId))
+  const fetchAllUsers = () =>
+    users.forEach((user: UserInfoAndUserStatus) => {
+      dispatch(neosActions.getUserStateActionCreator(user.userInfo.id))
     })
-  }, [])
+
+  // 初回ロード時
+  useEffect(() => fetchAllUsers(), [])
 
   return (
     <div className="App">
-      <header className="App-header">
+      <Stack
+        direction={"row"}
+        style={{
+          justifyContent: "center",
+          margin: "8px",
+        }}
+      >
         <TextField
           className="App-header-content"
           type={"text"}
           variant={"outlined"}
-          onChange={(e) => setUsernameInput(e.target.value)}
+          placeholder={"UserName"}
+          onChange={(e) => {
+            setUsernameInput(e.target.value)
+          }}
         />
         <Button
           id="submit"
@@ -49,11 +59,7 @@ const App: React.FC = () => {
           variant={"contained"}
           className="App-header-content"
           sx={{ margin: "0 5px" }}
-          onClick={() => {
-            users.forEach((user: UserInfoAndUserStatus) => {
-              dispatch(neosActions.getUserStateActionCreator(user.userInfo.id))
-            })
-          }}
+          onClick={fetchAllUsers}
         >
           Reload
         </Button>
@@ -65,12 +71,12 @@ const App: React.FC = () => {
         >
           フレンドをインポート
         </Button>
-      </header>
+      </Stack>
       <UserSelectModal />
       <LoginModal />
       <FriendImportModal />
       <SessionDetailModal />
-      <UserList />
+      <UserList users={users} />
     </div>
   )
 }

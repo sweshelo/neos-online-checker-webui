@@ -79,6 +79,13 @@ const neosActions = {
         userId: relativeUserId,
       },
     } as const),
+  deleteUserByIdActionCreator: (userId: string) =>
+    ({
+      type: "DELETE_USER",
+      payload: {
+        userId,
+      },
+    } as const),
 }
 
 export default neosActions

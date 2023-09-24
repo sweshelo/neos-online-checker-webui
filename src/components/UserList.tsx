@@ -1,17 +1,23 @@
 import React from "react"
-import { UserInfoAndUserStatus, Session } from "../types/neos"
+import { UserInfoAndUserStatus, Session, User } from "../types/neos"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import {
+  Avatar,
+  Button,
   Card,
   CardContent,
+  CardHeader,
+  Chip,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   Typography,
 } from "@mui/material"
 import neosActions from "../redux/neos/actions"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
   const dispatch = useDispatch()
@@ -35,6 +41,9 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
     break
   }
 
+  const handleDeleteUser = () =>
+    dispatch(neosActions.deleteUserByIdActionCreator(user.userInfo.id))
+
   return (
     <Card
       className="user-status-show"
@@ -46,15 +55,37 @@ const UserStatus: React.FC<{ user: UserInfoAndUserStatus }> = ({ user }) => {
       }}
     >
       <CardContent>
-        <Typography sx={{ fontSize: 20 }} component="span" paddingX={1}>
-          {user.userInfo.username}
-        </Typography>
-        <Typography sx={{ fontSize: 15 }} color={"gray"} component="span">
-          {user.userInfo.id}
-        </Typography>
-        <Typography sx={{ fontSize: 19 }} color={color}>
-          {user.status?.onlineStatus}
-        </Typography>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ bgcolor: "gray" }} aria-label="recipe">
+              {user.userInfo.username[0]}
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="delete">
+              <DeleteIcon color="warning" onClick={handleDeleteUser} />
+            </IconButton>
+          }
+          title={user.userInfo.username}
+          subheader={
+            user.userInfo.id.length > 20
+              ? user.userInfo.id.slice(0, 19) + "…"
+              : user.userInfo.id
+          }
+          style={{
+            padding: "0px 3px",
+            textAlign: "left",
+          }}
+        />
+        <Chip
+          label={user.status?.onlineStatus}
+          variant={"outlined"}
+          sx={{
+            color: color,
+            padding: "15px",
+            margin: "8px",
+          }}
+        />
         <List>
           {user.status?.activeSessions &&
             user.status?.activeSessions.map((session: Session) => {
@@ -133,24 +164,29 @@ const sortByLastStatus = (
   return 0
 }
 
-const UserList: React.FC = () => {
-  const { users } = useSelector((state: RootState) => state.neosReducer)
+type UserListProps = {
+  users: UserInfoAndUserStatus[];
+};
 
-  return (
-    <>
-      <div id={"user-list"}>
-        <Grid container alignItems={"center"} justifyContent="center">
-          {users.sort(sortByLastStatus).map((user: UserInfoAndUserStatus) => {
-            return (
-              <Grid item key={user.userInfo.id}>
-                <UserStatus user={user} />
-              </Grid>
-            )
-          })}
-        </Grid>
-      </div>
-    </>
-  )
-}
+const UserList: React.FC<UserListProps> = React.memo(
+  ({ users }: UserListProps) => {
+    return (
+      <>
+        <div id={"user-list"}>
+          <Grid container alignItems={"center"} justifyContent="center">
+            {users.sort(sortByLastStatus).map((user: UserInfoAndUserStatus) => {
+              return (
+                <Grid item key={user.userInfo.id}>
+                  <UserStatus user={user} />
+                </Grid>
+              )
+            })}
+          </Grid>
+        </div>
+      </>
+    )
+  }
+)
+UserList.displayName = "UserList"
 
 export default UserList
