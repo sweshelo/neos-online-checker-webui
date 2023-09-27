@@ -6,6 +6,8 @@ const neosActions = {
   SEARCH_USER: "SEARCH_USER",
   SEARCH_USER_BY_ID: "SEARCH_USER_BY_ID",
   REGISTER_SEARCH_RESULT: "REGISTER_SEARCH_RESULT",
+  DELETE_USERS_WHO_DID_NOT_LOGIN_FOR_THREE_MONTHES:
+    "DELETE_USERS_WHO_DID_NOT_LOGIN_FOR_THREE_MONTHES",
 
   GET_STATUS: "GET_STATUS",
   SET_STATUS: "SET_STATUS",
@@ -48,12 +50,10 @@ const neosActions = {
       },
     } as const),
 
-  getUserStateActionCreator: (id: string) => ({
-    type: "GET_STATUS",
-    payload: {
-      id,
-    },
-  }),
+  getUserStateActionCreator: () =>
+    ({
+      type: "GET_STATUS",
+    } as const),
 
   searchUserByIdActionCreator: (userId: string) =>
     ({
@@ -85,6 +85,10 @@ const neosActions = {
       payload: {
         userId,
       },
+    } as const),
+  deleteUsersWhoDidNotLoginForThreeMonths: () =>
+    ({
+      type: "DELETE_USERS_WHO_DID_NOT_LOGIN_FOR_THREE_MONTHES",
     } as const),
 }
 
