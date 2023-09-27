@@ -83,16 +83,7 @@ const neosReducer = (state = initialState, action: Action) => {
   case neosActions.SET_STATUS:
     return {
       ...state,
-      users: [...state.users].map((u) => {
-        if (u.userInfo.id === action.payload.id) {
-          return {
-            userInfo: u.userInfo,
-            status: action.payload.status,
-          }
-        } else {
-          return u
-        }
-      }),
+      users: action.payload,
     }
   case neosActions.MODAL_SHOW:
     return {

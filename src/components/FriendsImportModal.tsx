@@ -14,10 +14,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
-import { RootState } from "../redux/store"
+import type { RootState } from "../redux/store"
 import { Friend } from "../types/neos"
 
-const FriendImportModal: React.FC = () => {
+type FriendImportModalProps = {
+  friends: Friend[];
+  open: boolean;
+};
+
+const FriendImportModal: React.FC<FriendImportModalProps> = ({
+  friends,
+  open,
+}) => {
   const dispatch = useDispatch()
   const style = {
     position: "absolute",
@@ -31,13 +39,10 @@ const FriendImportModal: React.FC = () => {
     minWidth: "300px",
     textAlign: "center",
   }
-  const { isShowingFriendImportModal, friends } = useSelector(
-    (state: RootState) => state.neosReducer
-  )
 
   return (
     <Modal
-      open={isShowingFriendImportModal}
+      open={open}
       onClose={() => {
         dispatch({ type: neosActions.IMPORT_MODAL_HIDE })
       }}

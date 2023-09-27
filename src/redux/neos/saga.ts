@@ -1,23 +1,9 @@
-import {
-  all,
-  call,
-  delay,
-  put,
-  select,
-  take,
-  takeEvery,
-} from "redux-saga/effects"
+import { all, call, put, select, takeEvery } from "redux-saga/effects"
 import neosActions from "./actions"
 import { ApiCall } from "../../helper/neosApiCall"
 import { State } from "./reducer"
-import {
-  User,
-  UserInfoAndUserStatus,
-  Credentials,
-  Friend,
-} from "../../types/neos"
+import { UserInfoAndUserStatus, Credentials } from "../../types/neos"
 import { Cookies, setCookie } from "typescript-cookie"
-import { useDispatch } from "react-redux"
 
 export function* searchUser({ payload }: any): Generator<ApiCall> {
   const { username } = payload
@@ -46,23 +32,38 @@ export function* searchUserById({ payload }: any): any {
   try {
     const response = yield call(ApiCall.get, `users/${userId}`)
     yield put({ type: neosActions.ADD_USER, payload: { user: response } })
-    yield call(getUserState, { payload: { id: userId } })
-    yield call(writeUserListToCookie)
   } catch (err) {
     console.error(err)
   }
 }
 
-export function* getUserState({ payload }: any): Generator<ApiCall> {
-  const { id } = payload
-
-  if (id == "") return
-
+function* fetchUserStatus(
+  user: UserInfoAndUserStatus
+): Generator<unknown, any> {
   try {
-    const response = yield call(ApiCall.get, `users/${id}/status`)
+    const response = yield call(
+      ApiCall.get,
+      `users/${user.userInfo.id}/status`
+    )
+    return {
+      userInfo: user.userInfo,
+      status: response,
+    }
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export function* getUserState(): Generator<unknown, void, any> {
+  const { users }: State = yield select((state) => state.neosReducer)
+  try {
+    const userStatuses = yield all(
+      users.map((user) => call(fetchUserStatus, user))
+    )
     yield put({
       type: neosActions.SET_STATUS,
-      payload: { status: response, id },
+      payload: userStatuses,
     })
   } catch (err) {
     console.error(err)
@@ -124,6 +125,29 @@ export function* writeUserListToCookie() {
   setCookie("user", JSON.stringify(userIdArray), { expires: 60 })
 }
 
+function* deleteUsersWhoDidNotLoginForThreeMonths() {
+  const { users }: State = yield select((state) => state.neosReducer)
+  try {
+    yield all(
+      users.map(function* (user) {
+        if (user.status?.lastStatusChange) {
+          const date = new Date(user.status.lastStatusChange)
+          const threeMonthAgo = new Date()
+          threeMonthAgo.setMonth(threeMonthAgo.getMonth() - 3)
+          if (date <= threeMonthAgo) {
+            console.log(`delete: ${user.userInfo.username}`)
+            yield put(
+              neosActions.deleteUserByIdActionCreator(user.userInfo.id)
+            )
+          }
+        }
+      })
+    )
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export function* watchSearchUser() {
   yield takeEvery(neosActions.SEARCH_USER, searchUser)
 }
@@ -152,5 +176,9 @@ export default function* neosSaga() {
     call(watchWriteUserListToCookie),
     call(watchSearchUserById),
     call(watchLoginNeos),
+    takeEvery(
+      neosActions.DELETE_USERS_WHO_DID_NOT_LOGIN_FOR_THREE_MONTHES,
+      deleteUsersWhoDidNotLoginForThreeMonths
+    ),
   ])
 }
