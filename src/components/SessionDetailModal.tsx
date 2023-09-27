@@ -20,12 +20,23 @@ import {
   Typography,
 } from "@mui/material"
 
-const SessionDetailModal: React.FC = () => {
+type SessionDetailModalProps = {
+  open: boolean;
+  session: {
+    sessionId: string;
+    userId: string;
+    sessionInfo?: Session;
+  };
+  users: UserInfoAndUserStatus[];
+};
+
+const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
+  open,
+  session,
+  users,
+}) => {
   const dispatch = useDispatch()
   const [sessionInfo, setSessionInfo] = useState<Session | null>(null)
-  const { isShowingSessionModal, session, users } = useSelector(
-    (state: RootState) => state.neosReducer
-  )
   const style = {
     position: "absolute",
     top: "50%",
@@ -51,7 +62,7 @@ const SessionDetailModal: React.FC = () => {
 
   return (
     <Modal
-      open={isShowingSessionModal}
+      open={open}
       onClose={() => {
         dispatch({ type: neosActions.SESSION_MODAL_HIDE })
       }}

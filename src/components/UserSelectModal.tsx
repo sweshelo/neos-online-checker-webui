@@ -29,11 +29,18 @@ const UserSelectButton: React.FC<{ user: User }> = ({ user }) => {
   )
 }
 
-const UserSelectModal: React.FC = () => {
+type UserSelectModalProps = {
+  searchResult: User[];
+  open: boolean;
+  users: UserInfoAndUserStatus[];
+};
+
+const UserSelectModal: React.FC<UserSelectModalProps> = ({
+  searchResult,
+  open,
+  users,
+}) => {
   const dispatch = useDispatch()
-  const { isShowingModal, searchResult, users } = useSelector(
-    (state: RootState) => state.neosReducer
-  )
   const style = {
     position: "absolute",
     top: "50%",
@@ -47,7 +54,7 @@ const UserSelectModal: React.FC = () => {
 
   return (
     <Modal
-      open={isShowingModal}
+      open={open}
       onClose={() => {
         dispatch({ type: neosActions.MODAL_HIDE })
       }}
@@ -83,9 +90,9 @@ const UserSelectModal: React.FC = () => {
                       })
                       if (!checkDuplicate) {
                         dispatch(neosActions.addUserActionCreator(user))
-                        dispatch(
+                        /*dispatch(
                           neosActions.getUserStateActionCreator(user.id)
-                        )
+                        )*/
                       }
                       dispatch({ type: neosActions.MODAL_HIDE })
                       dispatch({ type: neosActions.WRITE_TO_COOKIE })
