@@ -54,7 +54,7 @@ const SessionDetailModal: React.FC<SessionDetailModalProps> = ({
     setSessionInfo(
       users
         .find((user) => user.userInfo.id == session.userId)
-        ?.status?.activeSessions.find(
+        ?.status?.activeSessions?.find(
           (storedSession) => storedSession.sessionId == session.sessionId
         ) as Session
     )
