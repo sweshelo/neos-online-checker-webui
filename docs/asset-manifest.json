@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/neos-online-checker-webui/static/css/main.5e10d490.css",
-    "main.js": "/neos-online-checker-webui/static/js/main.466bb209.js",
+    "main.js": "/neos-online-checker-webui/static/js/main.d35b9564.js",
     "index.html": "/neos-online-checker-webui/index.html",
     "main.5e10d490.css.map": "/neos-online-checker-webui/static/css/main.5e10d490.css.map",
-    "main.466bb209.js.map": "/neos-online-checker-webui/static/js/main.466bb209.js.map"
+    "main.d35b9564.js.map": "/neos-online-checker-webui/static/js/main.d35b9564.js.map"
   },
   "entrypoints": [
     "static/css/main.5e10d490.css",
-    "static/js/main.466bb209.js"
+    "static/js/main.d35b9564.js"
   ]
 }
