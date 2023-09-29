@@ -94,7 +94,7 @@ type UserStatus = {
   publicRSAKey: string;
   outputDevice: OutputDevice;
   isMobile: boolean;
-  activeSessions: Array<Session>;
+  activeSessions: Array<Session> | undefined;
 };
 
 type UserInfoAndUserStatus = {
